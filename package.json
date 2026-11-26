@@ -1,0 +1,49 @@
+{
+  "name": "feishu-desktop-planner",
+  "version": "1.0.6",
+  "description": "飞书多维表格排期、共享日历同步及 Windows 桌面待办",
+  "main": "build/desktop/main.cjs",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "typecheck": "tsc --noEmit",
+    "planner": "node src/cli.mts",
+    "build:desktop": "node scripts/build-desktop.mjs",
+    "desktop": "npm run build:desktop && electron .",
+    "test:desktop": "npm run build:desktop && node scripts/check-desktop.mjs",
+    "pack:win": "npm run build:desktop && node -e \"require('electron')\" && electron-builder --win nsis --x64"
+  },
+  "engines": {
+    "node": ">=24.12"
+  },
+  "keywords": [],
+  "author": "Windborne",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@larksuiteoapi/node-sdk": "^1.77.0",
+    "dotenv": "^18.0.10",
+    "lucide-react": "0.468.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "build": {
+    "appId": "com.windborne.feishuplanner",
+    "productName": "Feishu Desktop Planner",
+    "artifactName": "FeishuDesktopPlanner-${version}-win-${arch}.${ext}",
+    "directories": { "output": "dist" },
+    "files": ["build/desktop/**", "package.json", "!node_modules/**"],
+    "electronDist": "node_modules/electron/dist",
+    "win": { "target": "nsis", "icon": "build/desktop/icon.ico", "signExecutable": false },
+    "nsis": { "oneClick": false, "perMachine": false, "allowToChangeInstallationDirectory": true,
+      "installerIcon": "build/desktop/icon.ico", "uninstallerIcon": "build/desktop/icon.ico" }
+  },
+  "devDependencies": {
+    "@types/node": "24.19.3",
+    "@types/react": "19.3.1",
+    "@types/react-dom": "19.3.0",
+    "electron": "43.8.13",
+    "electron-builder": "26.18.0",
+    "esbuild": "0.28.2",
+    "typescript": "5.9.3"
+  }
+}

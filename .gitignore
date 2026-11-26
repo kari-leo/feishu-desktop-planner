@@ -1,0 +1,10 @@
+node_modules/
+build/
+dist/
+.env
+data/
+*.db
+*.db-wal
+*.db-shm
+*.dpapi
+*.log
